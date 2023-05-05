@@ -187,7 +187,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   getTileUrl: function (coords) {
       console.log('leaflet-bing-layer:getTileUrl');
       console.log('caller: ', this.getTileUrl.caller);
-      return '';
+      //return '';
     var quadkey = toQuadKey(coords.x, coords.y, coords.z)
     var url = L.Util.template(this._url, {
       quadkey: quadkey,
