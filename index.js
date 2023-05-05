@@ -158,9 +158,9 @@ L.TileLayer.Bing = L.TileLayer.extend({
     tile.alt = ''
 
     // Don't create closure if we don't have to
-    if (this._url) {
-      tile.src = this.getTileUrl(coords)
-    } 
+    //if (this._url) {
+    //  tile.src = this.getTileUrl(coords)
+    //} 
       //else {
       //this._fetch.then(function () {
       //  tile.src = this.getTileUrl(coords)
