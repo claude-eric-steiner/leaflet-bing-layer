@@ -147,6 +147,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
 
   createTile: function (coords, done) {
       console.log('leaflet-bing-layer:createTile');
+      console.log('caller: ', this.createTile.caller);
     var tile = document.createElement('img')
 
     L.DomEvent.on(tile, 'load', L.bind(this._tileOnLoad, this, done, tile))
