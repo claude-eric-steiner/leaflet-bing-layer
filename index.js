@@ -2,6 +2,10 @@ var L = require('leaflet')
 var fetchJsonp = require('fetch-jsonp')
 var bboxIntersect = require('bbox-intersect')
 
+var request = require('request').defaults({
+    encoding: null
+});
+
 /**
  * Converts tile xyz coordinates to Quadkey
  * @param {Number} x
@@ -104,13 +108,30 @@ L.TileLayer.Bing = L.TileLayer.extend({
     this._imageryProviders = []
     this._attributions = []
 
+    var options = {
+            url: metaDataUrl,
+            headers: {
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0'
+            }
+        };
+    request.get(options, function (err, res, buffer) {
+            if (err) {
+                console.error('Could not get url', err);
+                return;
+            }
+            console.log(res);
+            console.log(buffer.length);            
+            console.log(buffer);
+        });
+    
     // Keep a reference to the promise so we can use it later
-    this._fetch = fetchJsonp(metaDataUrl, {jsonpCallback: 'jsonp'})
-      .then(function (response) {
-        return response.json()
-      })
-      .then(this._metaDataOnLoad.bind(this))
-      .catch(console.error.bind(console))
+    //this._fetch = fetchJsonp(metaDataUrl, {jsonpCallback: 'jsonp'})
+    //  .then(function (response) {
+    //    return response.json()
+    //  })
+    //  .then(this._metaDataOnLoad.bind(this))
+    //  .catch(console.error.bind(console))
 
     // for https://github.com/Leaflet/Leaflet/issues/137
     if (!L.Browser.android) {
