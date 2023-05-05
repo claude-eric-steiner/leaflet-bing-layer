@@ -121,7 +121,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
     this._fetch = request.get(reqoptions)
       .then(function (response) {
             console.log(response);
-            this._metaDataOnLoad(response);
+            this._metaDataOnLoad.bind(response);
         })
       .catch(function (err) {
              console.log('error:', err);
@@ -249,6 +249,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   _metaDataOnLoad: function (metaData) {
+     console.log('leaflet-bing-layer:_metaDataOnLoad');      
     if (metaData.statusCode !== 200) {
       throw new Error('Bing Imagery Metadata error: \n' + JSON.stringify(metaData, null, '  '))
     }
