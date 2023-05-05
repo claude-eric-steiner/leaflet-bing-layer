@@ -122,7 +122,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
     this._fetch = request.get(reqoptions)
       .then(function (response) {
             console.log(response);
-            self._metaDataOnLoad.bind(response);
+            self._metaDataOnLoad(response);
         })
       .catch(function (err) {
              console.log('error:', err);
