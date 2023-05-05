@@ -164,10 +164,13 @@ L.TileLayer.Bing = L.TileLayer.extend({
     
     // Don't create closure if we don't have to
     if (this._url) {
+        console.log('this._url = true);
       tile.src = this.getTileUrl(coords)
     } 
       else {
+        console.log('this._url = false);
       this._fetch.then(function () {
+        console.log('this.src = this.getTileUrl');
         tile.src = this.getTileUrl(coords)
       }.bind(this)).catch(function (e) {
         console.error(e)
