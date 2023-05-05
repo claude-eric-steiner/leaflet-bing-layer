@@ -121,6 +121,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
     this._fetch = request.get(reqoptions)
       .then(function (response) {
             console.log(response);
+            return response;
         })
       .catch(function (err) {
              console.log('error:', err);
@@ -160,7 +161,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
     */
     tile.alt = ''
 
-    /*
+    
     // Don't create closure if we don't have to
     if (this._url) {
       tile.src = this.getTileUrl(coords)
@@ -173,7 +174,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
         done(e)
       })
     }
-    */
+    
 
     return tile
   },
