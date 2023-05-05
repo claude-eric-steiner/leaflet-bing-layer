@@ -192,6 +192,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
         return '';
       }
     var quadkey = toQuadKey(coords.x, coords.y, coords.z)
+    console.log('quadkey:', quadkey);
     var url = L.Util.template(this._url, {
       quadkey: quadkey,
       subdomain: this._getSubdomain(coords),
