@@ -116,6 +116,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0'
             }
         };
+    console.log('before request of metaData');
     request.get(options, function (err, res, buffer) {
             if (err) {
                 console.error('Could not get url', err);
@@ -125,6 +126,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
             console.log(buffer.length);            
             console.log(buffer);
         });
+    console.log('after request of metaData');
     
     // Keep a reference to the promise so we can use it later
     //this._fetch = fetchJsonp(metaDataUrl, {jsonpCallback: 'jsonp'})
