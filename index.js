@@ -81,6 +81,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   initialize: function (options) {
+    console.log('leaflet-bing-layer:initialize');
     if (typeof options === 'string') {
       options = { bingMapsKey: options }
     }
@@ -140,6 +141,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   createTile: function (coords, done) {
+      console.log('leaflet-bing-layer:createTile');
     var tile = document.createElement('img')
 
     L.DomEvent.on(tile, 'load', L.bind(this._tileOnLoad, this, done, tile))
@@ -171,6 +173,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   getTileUrl: function (coords) {
+      console.log('leaflet-bing-layer:getTileUrl');
     var quadkey = toQuadKey(coords.x, coords.y, coords.z)
     var url = L.Util.template(this._url, {
       quadkey: quadkey,
