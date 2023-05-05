@@ -109,15 +109,16 @@ L.TileLayer.Bing = L.TileLayer.extend({
     this._imageryProviders = []
     this._attributions = []
 
-    var options = {
+    var reqoptions = {
             url: metaDataUrl,
             headers: {
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0'
-            }
+            },
+            json: true
         };
     console.log('before request of metaData');
-    this._fetch = request.get(options)
+    this._fetch = request.get(reqoptions)
       .then(function (response) {
             console.log(response);
         })
