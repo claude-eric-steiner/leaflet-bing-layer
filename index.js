@@ -187,6 +187,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   getTileUrl: function (coords) {
       console.log('leaflet-bing-layer:getTileUrl');
       console.log('caller: ', this.getTileUrl.caller);
+      console.log('coords:', coords);
       if (!this._url) {
         return '';
       }
