@@ -2,7 +2,7 @@ var L = require('leaflet')
 var fetchJsonp = require('fetch-jsonp')
 var bboxIntersect = require('bbox-intersect')
 
-var request = require('request').defaults({
+var request = require('request-promise').defaults({
     encoding: null
 });
 
@@ -117,25 +117,25 @@ L.TileLayer.Bing = L.TileLayer.extend({
             }
         };
     console.log('before request of metaData');
-    request.get(options, function (err, res, buffer) {
-            if (err) {
-                console.error('Could not get url', err);
-                return;
-            }
-            console.log(res);
-            console.log(buffer.length);            
-            console.log(buffer);
+    this._fetch = request.get(options)
+      .then(function (response) {
+            console.log(response);
+        })
+      .catch(funtion (err) {
+             console.log('error:', err);
         });
     console.log('after request of metaData');
     
+    /*  
     // Keep a reference to the promise so we can use it later
-    //this._fetch = fetchJsonp(metaDataUrl, {jsonpCallback: 'jsonp'})
-    //  .then(function (response) {
-    //    return response.json()
-    //  })
-    //  .then(this._metaDataOnLoad.bind(this))
-    //  .catch(console.error.bind(console))
-
+    this._fetch = fetchJsonp(metaDataUrl, {jsonpCallback: 'jsonp'})
+      .then(function (response) {
+        return response.json()
+      })
+      .then(this._metaDataOnLoad.bind(this))
+      .catch(console.error.bind(console))
+    */
+      
     // for https://github.com/Leaflet/Leaflet/issues/137
     if (!L.Browser.android) {
       this.on('tileunload', this._onTileRemove)
@@ -159,18 +159,20 @@ L.TileLayer.Bing = L.TileLayer.extend({
     */
     tile.alt = ''
 
+    /*
     // Don't create closure if we don't have to
-    //if (this._url) {
-    //  tile.src = this.getTileUrl(coords)
-    //} 
-      //else {
-      //this._fetch.then(function () {
-      //  tile.src = this.getTileUrl(coords)
-      //}.bind(this)).catch(function (e) {
-      //  console.error(e)
-      //  done(e)
-      //})
-    //}
+    if (this._url) {
+      tile.src = this.getTileUrl(coords)
+    } 
+      else {
+      this._fetch.then(function () {
+        tile.src = this.getTileUrl(coords)
+      }.bind(this)).catch(function (e) {
+        console.error(e)
+        done(e)
+      })
+    }
+    */
 
     return tile
   },
