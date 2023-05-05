@@ -188,6 +188,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
 
   // Update the attribution control every time the map is moved
   onAdd: function (map) {
+      console.log('leaflet-bing-layer:onAdd');
     map.on('moveend', this._updateAttribution, this)
     L.TileLayer.prototype.onAdd.call(this, map)
     this._attributions.forEach(function (attribution) {
@@ -197,6 +198,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
 
   // Clean up events and remove attributions from attribution control
   onRemove: function (map) {
+      console.log('leaflet-bing-layer:onRemove');
     map.off('moveend', this._updateAttribution, this)
     this._attributions.forEach(function (attribution) {
       map.attributionControl.removeAttribution(attribution)
@@ -214,6 +216,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
    * @return {Promise} Resolves to the JSON metadata
    */
   getMetaData: function (latlng, zoom) {
+      console.log('leaflet-bing-layer:getMetaData');
     if (!this._map && (!latlng || !zoom)) {
       return Promise.reject(new Error('If layer is not attached to map, you must provide LatLng and zoom'))
     }
@@ -250,6 +253,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
    * within the current map bounds
    */
   _updateAttribution: function () {
+      console.log('leaflet-bing-layer:_updateAttribution');
     var map = this._map
     if (!map || !map.attributionControl) return
     var zoom = map.getZoom()
@@ -279,6 +283,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
    * @return {Array} Array of attribution strings for each provider
    */
   _getAttributions: function (bbox, zoom) {
+      console.log('leaflet-bing-layer:_getAttributions');
     return this._imageryProviders.reduce(function (attributions, provider) {
       for (var i = 0; i < provider.coverageAreas.length; i++) {
         if (bboxIntersect(bbox, provider.coverageAreas[i].bbox) &&
