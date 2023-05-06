@@ -187,12 +187,15 @@ L.TileLayer.Bing = L.TileLayer.extend({
   getTileUrl: function (coords) {
       console.log('leaflet-bing-layer:getTileUrl');
       console.log('caller: ', this.getTileUrl.caller);
-      console.trace();
-      console.log('coords:', coords);
-      console.log(this);
+      //console.trace();
+      //console.log(this);
       if (!this._url) {
         return '';
       }
+      if ('z' not in coords){
+          coords.z = this._tileZoom;
+      }
+      console.log('coords:', coords);
     var quadkey = toQuadKey(coords.x, coords.y, coords.z)
     console.log('quadkey:', quadkey);
     var url = L.Util.template(this._url, {
