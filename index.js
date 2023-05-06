@@ -189,6 +189,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
       console.log('caller: ', this.getTileUrl.caller);
       console.trace();
       console.log('coords:', coords);
+      console.log(this);
       if (!this._url) {
         return '';
       }
