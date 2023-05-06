@@ -192,7 +192,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
       if (!this._url) {
         return '';
       }
-      if ('z' not in coords){
+      if (!('z' in coords)){
           coords.z = this._tileZoom;
       }
       console.log('coords:', coords);
