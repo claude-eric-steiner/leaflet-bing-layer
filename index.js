@@ -81,7 +81,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   initialize: function (options) {
-    console.log('leaflet-bing-layer:initialize');
+    //console.log('leaflet-bing-layer:initialize');
     if (typeof options === 'string') {
       options = { bingMapsKey: options }
     }
@@ -117,17 +117,17 @@ L.TileLayer.Bing = L.TileLayer.extend({
             },
             json: true
         };
-    console.log('before request of metaData');
+    //console.log('before request of metaData');
     var self = this;
     this._fetch = request.get(reqoptions)
       .then(function (response) {
-            console.log(response);
+            //console.log(response);
             self._metaDataOnLoad(response);
         })
       .catch(function (err) {
              console.log('error:', err);
         });
-    console.log('after request of metaData');
+    //console.log('after request of metaData');
     
     /*  
     // Keep a reference to the promise so we can use it later
@@ -146,8 +146,8 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   createTile: function (coords, done) {
-      console.log('leaflet-bing-layer:createTile');
-      console.log('caller: ', this.createTile.caller);
+      //console.log('leaflet-bing-layer:createTile');
+      //console.log('caller: ', this.createTile.caller);
     var tile = document.createElement('img')
 
     L.DomEvent.on(tile, 'load', L.bind(this._tileOnLoad, this, done, tile))
@@ -166,13 +166,13 @@ L.TileLayer.Bing = L.TileLayer.extend({
     
     // Don't create closure if we don't have to
     if (this._url) {
-        console.log('this._url = true');
+        //console.log('this._url = true');
       tile.src = this.getTileUrl(coords)
     } 
       else {
-        console.log('this._url = false');
+        //console.log('this._url = false');
       this._fetch.then(function () {
-        console.log('this.src = this.getTileUrl');
+        //console.log('this.src = this.getTileUrl');
         tile.src = this.getTileUrl(coords)
       }.bind(this)).catch(function (e) {
         console.error(e)
@@ -185,8 +185,8 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   getTileUrl: function (coords) {
-      console.log('leaflet-bing-layer:getTileUrl');
-      console.log('caller: ', this.getTileUrl.caller);
+      //console.log('leaflet-bing-layer:getTileUrl');
+      //console.log('caller: ', this.getTileUrl.caller);
       //console.trace();
       //console.log(this);
       if (!this._url) {
@@ -195,9 +195,9 @@ L.TileLayer.Bing = L.TileLayer.extend({
       if (!('z' in coords)){
           coords.z = this._tileZoom;
       }
-      console.log('coords:', coords);
+      //console.log('coords:', coords);
     var quadkey = toQuadKey(coords.x, coords.y, coords.z)
-    console.log('quadkey:', quadkey);
+    //console.log('quadkey:', quadkey);
     var url = L.Util.template(this._url, {
       quadkey: quadkey,
       subdomain: this._getSubdomain(coords),
@@ -211,7 +211,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
 
   // Update the attribution control every time the map is moved
   onAdd: function (map) {
-      console.log('leaflet-bing-layer:onAdd');
+      //console.log('leaflet-bing-layer:onAdd');
     map.on('moveend', this._updateAttribution, this)
     L.TileLayer.prototype.onAdd.call(this, map)
     this._attributions.forEach(function (attribution) {
@@ -221,7 +221,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
 
   // Clean up events and remove attributions from attribution control
   onRemove: function (map) {
-      console.log('leaflet-bing-layer:onRemove');
+      //console.log('leaflet-bing-layer:onRemove');
     map.off('moveend', this._updateAttribution, this)
     this._attributions.forEach(function (attribution) {
       map.attributionControl.removeAttribution(attribution)
@@ -239,7 +239,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
    * @return {Promise} Resolves to the JSON metadata
    */
   getMetaData: function (latlng, zoom) {
-      console.log('leaflet-bing-layer:getMetaData');
+      //console.log('leaflet-bing-layer:getMetaData');
     if (!this._map && (!latlng || !zoom)) {
       return Promise.reject(new Error('If layer is not attached to map, you must provide LatLng and zoom'))
     }
@@ -260,7 +260,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
   },
 
   _metaDataOnLoad: function (metaData) {
-     console.log('leaflet-bing-layer:_metaDataOnLoad');      
+     //console.log('leaflet-bing-layer:_metaDataOnLoad');      
     if (metaData.statusCode !== 200) {
       throw new Error('Bing Imagery Metadata error: \n' + JSON.stringify(metaData, null, '  '))
     }
@@ -277,7 +277,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
    * within the current map bounds
    */
   _updateAttribution: function () {
-      console.log('leaflet-bing-layer:_updateAttribution');
+      //console.log('leaflet-bing-layer:_updateAttribution');
     var map = this._map
     if (!map || !map.attributionControl) return
     var zoom = map.getZoom()
@@ -307,7 +307,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
    * @return {Array} Array of attribution strings for each provider
    */
   _getAttributions: function (bbox, zoom) {
-      console.log('leaflet-bing-layer:_getAttributions');
+      //console.log('leaflet-bing-layer:_getAttributions');
     return this._imageryProviders.reduce(function (attributions, provider) {
       for (var i = 0; i < provider.coverageAreas.length; i++) {
         if (bboxIntersect(bbox, provider.coverageAreas[i].bbox) &&
