@@ -193,7 +193,7 @@ L.TileLayer.Bing = L.TileLayer.extend({
         return '';
       }
       if (!('z' in coords)){
-          coords.z = this._tileZoom;
+          coords.z = this._map._zoom;
       }
       console.log('coords:', coords);
     var quadkey = toQuadKey(coords.x, coords.y, coords.z)
