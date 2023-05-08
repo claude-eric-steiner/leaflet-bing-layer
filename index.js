@@ -188,14 +188,14 @@ L.TileLayer.Bing = L.TileLayer.extend({
       //console.log('leaflet-bing-layer:getTileUrl');
       //console.log('caller: ', this.getTileUrl.caller);
       //console.trace();
-      console.log(this);
+      //console.log(this);
       if (!this._url) {
         return '';
       }
       if (!('z' in coords)){
           coords.z = this._map._zoom;
       }
-      console.log('coords:', coords);
+      //console.log('coords:', coords);
     var quadkey = toQuadKey(coords.x, coords.y, coords.z)
     //console.log('quadkey:', quadkey);
     var url = L.Util.template(this._url, {
